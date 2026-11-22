@@ -1,11 +1,23 @@
 {
-  "name": "isud/sdk-php",
+  "name": "isud/tm",
   "description": "优标宝开放 API PHP SDK：零第三方运行时依赖，基于 cURL，契约驱动",
   "type": "library",
   "version": "1.0.0",
   "license": "MIT",
-  "keywords": ["trademark", "ip", "sdk", "isud", "优标宝"],
-  "authors": [{"name": "l-zhiyuan", "email": "359914656@qq.com"}],
+  "keywords": [
+    "trademark",
+    "ip",
+    "sdk",
+    "isud",
+    "优标宝"
+  ],
+  "authors": [
+    {
+      "name": "isud-opensource",
+      "email": "b236257@qq.com",
+      "homepage": "https://github.com/isud-opensource"
+    }
+  ],
   "require": {
     "php": ">=8.0",
     "ext-curl": "*",
@@ -15,13 +27,19 @@
     "phpunit/phpunit": "^10.0"
   },
   "autoload": {
-    "psr-4": {"IsudSdk\\": "src/IsudSdk/"}
+    "psr-4": {
+      "IsudSdk\\": "src/IsudSdk/"
+    }
   },
   "autoload-dev": {
-    "psr-4": {"IsudSdk\\Tests\\": "tests/"}
+    "psr-4": {
+      "IsudSdk\\Tests\\": "tests/"
+    }
   },
   "scripts": {
     "test": "phpunit tests"
   },
-  "config": {"optimize-autoloader": true}
+  "config": {
+    "optimize-autoloader": true
+  }
 }

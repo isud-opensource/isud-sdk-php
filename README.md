@@ -1,4 +1,6 @@
-# isud-sdk-php
+# isud/tm (PHP)
+
+[![Packagist Version](https://img.shields.io/packagist/v/isud/tm)](https://packagist.org/packages/isud/tm)
 
 优标宝开放 API 的 PHP SDK。**零第三方运行时依赖**（原生 cURL + json 扩展），契约驱动。
 
@@ -7,7 +9,7 @@
 - PHP >= 8.0，需要 `ext-curl` + `ext-json`。
 
 ```bash
-composer require isud/sdk-php
+composer require isud/tm
 ```
 
 无 Composer 也可直接 `require 'autoload.php'`（内置轻量 PSR-4）。
