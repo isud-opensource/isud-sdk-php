@@ -56,6 +56,18 @@ echo Client::formatSearchResult($res), "\n";
 | `queryRequestLog` | GET /ip/requests |
 | `getMcpHealth` | GET /mcp/health |
 | `callMcp` | POST /mcp |
+| `queryVienna` | GET /ip/vienna/query（图形检索 VCL10 / 以图搜图） |
+| `queryGazette` | GET /ip/gazette/query（CN 公告 / 全球事件） |
+| `queryReview` | GET /ip/review/query（CNIPA 评审文书 298 万） |
+| `queryIpr` | GET /ip/ipr/query（海关备案 12 万，可选接入） |
+
+四个数据能力方法均为 GET、读类 1 点/次，接收参数数组，返回 `data` 原始 JSON（结构随 `mode` 变化）：
+
+```php
+$codes = $client->queryVienna(['mode' => 'codes', 'q' => '王冠']);
+$docs  = $client->queryReview(['q' => '华为', 'size' => 10]);
+$filings = $client->queryIpr(['q' => '华为']);
+```
 
 ## 示例项目
 

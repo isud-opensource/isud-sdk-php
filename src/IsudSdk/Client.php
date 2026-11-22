@@ -43,7 +43,7 @@ final class Client
         $this->mcpBaseUrl = rtrim($mcpBaseUrl, '/');
         $this->timeout = $timeout;
         $this->maxRetries = $maxRetries;
-        $this->userAgent = 'isud-sdk-php/1.0.2';
+        $this->userAgent = 'isud-sdk-php/1.0.3';
         $this->transport = $transport;
         $this->lastMeta = new ResponseMeta();
     }
@@ -247,6 +247,33 @@ final class Client
     {
         if ($requestId === '' || strlen($requestId) > 64) throw new ValidationError('requestId 必须为 1~64 字符。');
         return $this->request(['method' => 'GET', 'path' => '/ip/requests', 'query' => ['requestId' => $requestId]]);
+    }
+
+    // ---- 数据能力：图形检索 / 商标公告 / 评审文书 / 海关备案（GET，读类 1 点）----
+    // 返回 data 原始 JSON（结构随 mode 变化），由调用方按传入的 mode 解析。
+
+    /** 图形检索：维也纳 VCL10 / 关键词换码 / 分类树 / 以图搜图。 */
+    public function queryVienna(array $params = []): mixed
+    {
+        return $this->request(['method' => 'GET', 'path' => '/ip/vienna/query', 'query' => $params]);
+    }
+
+    /** 商标公告：CN 公告明细与期号 / 全球 7 局事件。 */
+    public function queryGazette(array $params = []): mixed
+    {
+        return $this->request(['method' => 'GET', 'path' => '/ip/gazette/query', 'query' => $params]);
+    }
+
+    /** 评审文书：CNIPA 298 万裁定书。 */
+    public function queryReview(array $params = []): mixed
+    {
+        return $this->request(['method' => 'GET', 'path' => '/ip/review/query', 'query' => $params]);
+    }
+
+    /** 海关备案：12 万条备案记录（可选接入）。 */
+    public function queryIpr(array $params = []): mixed
+    {
+        return $this->request(['method' => 'GET', 'path' => '/ip/ipr/query', 'query' => $params]);
     }
 
     /** MCP 健康（裸响应）。 */

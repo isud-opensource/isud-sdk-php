@@ -86,11 +86,27 @@ final class ContractTest
 
         // 4. MCP 裸响应
         echo "TestMCPBareResponse:\n";
-        $mc = new Client('k', transport: self::transport(200, '{"status":"ok","toolCount":13}', [], function ($m, $u) {
+        $mc = new Client('k', transport: self::transport(200, '{"status":"ok","toolCount":15}', [], function ($m, $u) {
             self::check('mcp path', str_contains($u, '/api/v1/mcp/health'));
         }));
         $h = $mc->getMcpHealth();
-        self::check('mcp health parsed', ($h['status'] ?? '') === 'ok' && ($h['toolCount'] ?? 0) === 13);
+        self::check('mcp health parsed', ($h['status'] ?? '') === 'ok' && ($h['toolCount'] ?? 0) === 15);
+
+        // 4b. 四个数据能力端点走 GET 且参数透传
+        echo "TestDataCapabilityEndpoints:\n";
+        foreach ([
+            ['queryVienna', '/ip/vienna/query', ['mode' => 'codes', 'q' => '王冠']],
+            ['queryGazette', '/ip/gazette/query', ['mode' => 'issues']],
+            ['queryReview', '/ip/review/query', ['q' => '华为', 'size' => 1]],
+            ['queryIpr', '/ip/ipr/query', ['mode' => 'stats']],
+        ] as [$m, $path, $params]) {
+            $dc = new Client('k', transport: self::transport(200, self::env('0000', '{"ok":true}'), [], function ($method, $url) use ($path, $m) {
+                self::check("$m method GET", $method === 'GET');
+                self::check("$m path", str_contains($url, $path));
+            }));
+            $data = $dc->$m($params);
+            self::check("$m returns data", ($data['ok'] ?? false) === true);
+        }
 
         // 5. Retry-After 解析
         echo "TestParseRetryAfter:\n";
