@@ -122,7 +122,7 @@ final class Client
                 // 裸响应端点（MCP）
                 if (!empty($o['noEnvelope'])) {
                     $this->lastMeta = $meta;
-                    if ($status >= 400) throw new NetworkError("HTTP {$status}: " . substr((string)$raw, 0, 200), $meta, $status);
+                    if ($status >= 400) throw new NetworkError("HTTP {$status}: " . substr((string)$raw, 0, 200), meta: $meta, statusCode: $status);
                     return json_decode($raw, true);
                 }
 

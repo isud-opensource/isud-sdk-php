@@ -2,7 +2,6 @@
   "name": "isud/tm",
   "description": "优标宝开放 API PHP SDK：零第三方运行时依赖，基于 cURL，契约驱动",
   "type": "library",
-  "version": "1.0.0",
   "license": "MIT",
   "keywords": [
     "trademark",
@@ -29,7 +28,8 @@
   "autoload": {
     "psr-4": {
       "IsudSdk\\": "src/IsudSdk/"
-    }
+    },
+    "classmap": ["src/IsudSdk/Errors.php"]
   },
   "autoload-dev": {
     "psr-4": {
