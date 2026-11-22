@@ -43,7 +43,7 @@ final class Client
         $this->mcpBaseUrl = rtrim($mcpBaseUrl, '/');
         $this->timeout = $timeout;
         $this->maxRetries = $maxRetries;
-        $this->userAgent = 'isud-sdk-php/1.0.0';
+        $this->userAgent = 'isud-sdk-php/1.0.2';
         $this->transport = $transport;
         $this->lastMeta = new ResponseMeta();
     }
